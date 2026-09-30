@@ -1,0 +1,60 @@
+
+ const bemenet={
+            "bejegyzes_szoveg":beSzoveg,
+            
+        }
+
+
+{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(adatok)
+}
+
+
+
+
+
+
+
+TELJES:
+   const felvitel=async ()=>{
+        
+        if (beSzoveg==="" || beNev===""){
+            setSiker("A bejegyzés szövegét és a becenevet kötelező megadni!!!")
+            setHelyes(false)
+            return
+        }
+        const bemenet={
+            "bejegyzes_szoveg":beSzoveg,
+            "bejegyzes_datum":beDatum,
+            "bejegyzes_ki":beNev,
+            "bejegyzes_jatekos":atkuld
+        }
+        try{
+        const response=await fetch(Cim.Cim+"bejegyzesFelvitel",{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(bemenet)
+            })
+        const data=await response.json()
+        //alert(JSON.stringify(data))
+        if (response.ok){
+            setSiker(data["message"])
+            setHelyes(true)
+            frissit(ertek=>!ertek)
+            }
+        else
+            setSiker(data["error"])
+        }
+        catch (error){
+            console.log(error)
+
+        }
+    }
+
+
